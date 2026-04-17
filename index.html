@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KM GEARS | Elite Football Protection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        :root {
+            --primary-red: #ff0000;
+            --bg-black: #000000;
+            --card-bg: #0a0a0a;
+            --border-gray: #1a1a1a;
+            --paypal-gold: #ffc439;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-black); color: white; overflow-x: hidden; line-height: 1.6; }
+
+        
+        nav {
+            display: flex; justify-content: space-between; align-items: center; padding: 25px 6%;
+            position: fixed; width: 100%; z-index: 1000; background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-gray);
+        }
+        .logo { font-family: 'Orbitron'; font-size: 1.4rem; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; }
+        .logo span { color: var(--primary-red); }
+        nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
+        nav ul li a { color: white; text-decoration: none; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        .cart-trigger { cursor: pointer; position: relative; font-size: 1.2rem; }
+        .cart-count { background: var(--primary-red); padding: 2px 6px; border-radius: 50%; position: absolute; top: -10px; right: -15px; font-size: 0.6rem; }
+
+        
+        #cart-sidebar {
+            position: fixed; top: 0; right: -400px; width: 400px; height: 100%;
+            background: var(--card-bg); border-left: 1px solid var(--border-gray);
+            z-index: 2000; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 40px; display: flex; flex-direction: column;
+        }
+        #cart-sidebar.active { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border-gray); padding-bottom: 20px; }
+        .close-cart { cursor: pointer; font-size: 2rem; }
+
+        
+        .hero {
+            height: 100vh; display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,1)), url('https://images.unsplash.com/photo-1511886929837-354d827aae26?q=80&w=2048');
+            background-size: cover; background-position: center;
+        }
+        .hero h1 { font-family: 'Orbitron'; font-size: clamp(3rem, 10vw, 7rem); text-transform: uppercase; line-height: 0.9; margin-bottom: 10px; font-weight: 900; }
+        .hero p { letter-spacing: 10px; color: #888; text-transform: uppercase; margin-bottom: 40px; font-size: 0.9rem; font-weight: 400; }
+        .hero .btn-cta { width: auto; padding: 18px 50px; background: var(--primary-red); color: white; text-decoration: none; font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; }
+        .hero .btn-cta:hover { background: white; color: black; }
+
+        /* --- SHOP GRID --- */
+        section { padding: 100px 8%; border-bottom: 1px solid var(--border-gray); }
+        .section-title { font-family: 'Orbitron'; font-size: 2.5rem; text-align: center; margin-bottom: 60px; text-transform: uppercase; }
+
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; }
+        .product-card { background: var(--card-bg); border: 1px solid var(--border-gray); text-align: center; transition: 0.3s; padding-bottom: 35px; }
+        
+        .product-preview { 
+            background: #080808; height: 400px; width: 100%;
+            display: flex; align-items: center; justify-content: center; 
+            overflow: hidden; 
+        }
+        .product-preview img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            transform: scale(1.3); transition: 0.5s ease;
+        }
+
+        /* ISOLATED COLOR FILTERS (Won't affect card background) */
+        .t-red { filter: hue-rotate(0deg) contrast(1.1); }
+        .t-blue { filter: hue-rotate(220deg) saturate(3) brightness(0.8); }
+        .t-pink { filter: hue-rotate(300deg) saturate(2.5) brightness(1.1); }
+
+        .variant-select {
+            width: 80%; padding: 12px; margin: 20px auto 10px;
+            background: #111; border: 1px solid #333; color: #aaa;
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; outline: none;
+        }
+
+        .price { color: white; font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; display: block; }
+        .btn-red { width: 80%; padding: 15px; background: var(--primary-red); color: white; border: none; font-family: 'Orbitron'; cursor: pointer; font-size: 0.8rem; }
+
+        /* --- FAQ --- */
+        .faq-grid { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .faq-item { background: var(--card-bg); padding: 30px; border-left: 3px solid var(--primary-red); }
+        .faq-item h3 { font-family: 'Orbitron'; font-size: 0.9rem; margin-bottom: 10px; }
+        .faq-item p { font-size: 0.85rem; color: #777; }
+
+        /* --- CONTACT --- */
+        .contact-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1100px; margin: 0 auto; }
+        input, textarea { width: 100%; background: #080808; border: 1px solid #222; padding: 15px; color: white; margin-bottom: 15px; outline: none; }
+        
+        footer { padding: 60px; text-align: center; color: #333; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        @media (max-width: 768px) { 
+            .contact-container, .faq-grid { grid-template-columns: 1fr; } 
+            #cart-sidebar { width: 100%; right: -100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">KM<span>GEARS</span></div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="cart-trigger" onclick="toggleCart()">🛒 <span class="cart-count" id="count">0</span></li>
+        </ul>
+    </nav>
+
+    <div id="cart-sidebar">
+        <div class="cart-header">
+            <h2 style="font-family: 'Orbitron';">CART</h2>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div id="cart-items-list" style="flex-grow: 1; overflow-y: auto;"></div>
+        <div style="padding-top: 20px; border-top: 1px solid var(--border-gray);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-family: 'Orbitron';">
+                <span>TOTAL</span>
+                <span id="total-price">P0.00</span>
+            </div>
+            <button style="width: 100%; padding: 15px; background: var(--paypal-gold); color: #003087; border: none; font-weight: 800; cursor: pointer;">CHECKOUT WITH PAYPAL</button>
+        </div>
+    </div>
+
+    <section id="home" class="hero">
+        <h1 class="reveal">KM GEARS</h1>
+        <p class="reveal">it's not just gear.it's a mindset.</p>
+        <a href="#shop" class="btn-cta reveal">SHOP NOW</a>
+    </section>
+
+    <section id="shop">
+        <h2 class="section-title">The Collection</h2>
+        <div class="shop-grid">
+            <div class="product-card reveal">
+                <div class="product-preview"><img src="elite.png" alt="KM Elite" class="t-red"></div>
+                <div class="card-info">
+                    <select class="variant-select" onchange="updateImage(this)">
+                        <option value="t-red">Red</option>
+                        <option value="t-blue">Blue</option>
+                        <option value="t-pink">Pink</option>
+                    </select>
+                    <h3 style="font-family:'Orbitron'">KM ELITE V1</h3>
+                    <span class="price">P550.00</span>
+                    <button class="btn-red" onclick="addItem('KM ELITE V1', 550)">ADD TO CART</button>
+                </div>
+            </div>
+
+            <div class="product-card reveal">
+                <div class="product-preview"><img src="carbon.png" alt="KM Carbon" class="t-red"></div>
+                <div class="card-info">
+                    <select class="variant-select" onchange="updateImage(this)">
+                        <option value="t-red">Red</option>
+                        <option value="t-blue">Blue</option>
+                        <option value="t-pink">Pink</option>
+                    </select>
+                    <h3 style="font-family:'Orbitron'">KM CARBON</h3>
+                    <span class="price">P650.00</span>
+                    <button class="btn-red" onclick="addItem('KM CARBON', 650)">ADD TO CART</button>
+                </div>
+            </div>
+
+            <div class="product-card reveal">
+                <div class="product-preview"><img src="pro.png" alt="KM Pro" class="t-red"></div>
+                <div class="card-info">
+                    <select class="variant-select" onchange="updateImage(this)">
+                        <option value="t-red">Red</option>
+                        <option value="t-blue">Blue</option>
+                        <option value="t-pink">Pink</option>
+                    </select>
+                    <h3 style="font-family:'Orbitron'">KM PRO</h3>
+                    <span class="price">P600.00</span>
+                    <button class="btn-red" onclick="addItem('KM PRO', 600)">ADD TO CART</button>
+                </div>
+            </div>
+
+            
+    </section>
+
+    <section id="faq">
+        <h2 class="section-title">Common Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-item reveal"><h3>What are the sizes?</h3><p>S: 8x5cm | M: 10x6cm | L: 12x8cm. Slim fit for high performance.</p></div>
+            <div class="faq-item reveal"><h3>Local Payments?</h3><p>We accept EFT and Mobile Money (Orange Money/eWallet/MyZaka).</p></div>
+            <div class="faq-item reveal"><h3>Delivery timeline?</h3><p>Standard delivery across Botswana is 2-4 business days.</p></div>
+            <div class="faq-item reveal"><h3>Exchange policy?</h3><p>Unused gear can be swapped for a different size within 14 days.</p></div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Support</h2>
+        <div class="contact-container">
+            <div class="reveal">
+                <h3 style="font-family:'Orbitron'; margin-bottom: 10px;">Get in Touch</h3>
+                <p style="color:#555">Inquire about bulk team orders or local pickup in Gaborone.</p>
+                <p style="color:var(--primary-red); font-weight:800;">BW • KM GEARS HQ</p>
+            </div>
+            <form class="reveal" onsubmit="event.preventDefault(); alert('Sent!');">
+                <input type="text" placeholder="Name" required><input type="email" placeholder="Email" required>
+                <textarea rows="5" placeholder="Message" required></textarea>
+                <button type="submit" class="btn-red" style="width:100%">SEND MESSAGE</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>&copy; 2026 KM GEARS. ENGINEERED FOR GAME.</footer>
+
+    <script>
+        ScrollReveal().reveal('.reveal', { delay: 150, distance: '30px', origin: 'bottom', duration: 800 });
+        
+        function updateImage(select) {
+            const card = select.closest('.product-card');
+            card.querySelector('img').className = select.value;
+        }
+
+        let cart = [];
+        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+        function addItem(name, price) { 
+            cart.push({name, price}); 
+            updateCart(); 
+            if(!document.getElementById('cart-sidebar').classList.contains('active')) toggleCart(); 
+        }
+        function updateCart() {
+            const list = document.getElementById('cart-items-list');
+            const total = document.getElementById('total-price');
+            const count = document.getElementById('count');
+            list.innerHTML = ''; let sum = 0;
+            cart.forEach(item => { 
+                sum += item.price; 
+                list.innerHTML += `<div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #111;font-size:0.8rem;"><span>${item.name}</span><span>P${item.price}.00</span></div>`; 
+            });
+            count.innerText = cart.length; total.innerText = `P${sum}.00`;
+        }
+    </script>
+</body>
+</html>
