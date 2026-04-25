@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KM GEARS | Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        :root { --primary-red: #ff0000; --bg-black: #000000; --card-bg: #0a0a0a; --border-gray: #1a1a1a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-black); color: white; overflow-x: hidden; line-height: 1.6; }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center; padding: 25px 6%;
+            position: fixed; width: 100%; z-index: 1000; background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-gray);
+        }
+        .logo { font-family: 'Orbitron'; font-size: 1.4rem; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; text-decoration: none; color: white; }
+        .logo span { color: var(--primary-red); }
+        nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
+        nav ul li a { color: white; text-decoration: none; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; }
+        nav ul li a:hover, nav ul li a.active { color: var(--primary-red); }
+        .cart-trigger { cursor: pointer; position: relative; font-size: 1.2rem; }
+        .cart-count { background: var(--primary-red); padding: 2px 6px; border-radius: 50%; position: absolute; top: -10px; right: -15px; font-size: 0.6rem; }
+
+        /* Cart Sidebar */
+        #cart-sidebar {
+            position: fixed; top: 0; right: -420px; width: 420px; height: 100%;
+            background: #050505; border-left: 1px solid var(--border-gray);
+            z-index: 2000; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 40px; display: flex; flex-direction: column;
+        }
+        #cart-sidebar.active { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border-gray); padding-bottom: 20px; }
+        .close-cart { cursor: pointer; font-size: 2rem; line-height: 1; }
+        .cart-empty { flex: 1; display: flex; align-items: center; justify-content: center; color: #333; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* Page Hero */
+        .page-hero {
+            padding: 160px 8% 80px;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex; align-items: flex-end; justify-content: space-between;
+        }
+        .page-hero h1 { font-family: 'Orbitron'; font-size: clamp(2.5rem, 6vw, 5rem); text-transform: uppercase; font-weight: 900; }
+        .page-hero p { color: #444; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; margin-top: 10px; }
+        .product-count { font-family: 'Orbitron'; font-size: 5rem; font-weight: 900; color: #0d0d0d; line-height: 1; }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex; gap: 10px; padding: 25px 8%;
+            border-bottom: 1px solid var(--border-gray); align-items: center;
+        }
+        .filter-label { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-right: 10px; }
+        .filter-btn { padding: 8px 20px; background: transparent; border: 1px solid #222; color: #666; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.2s; font-family: 'Inter'; }
+        .filter-btn:hover, .filter-btn.active { border-color: var(--primary-red); color: white; }
+
+        /* Shop Grid */
+        .shop-section { padding: 60px 8% 100px; }
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2px; max-width: 1400px; margin: 0 auto; background: var(--border-gray); }
+        .product-card { background: var(--bg-black); transition: 0.3s; }
+        .product-card:hover { background: #040404; }
+
+        .product-preview {
+            height: 380px; width: 100%;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; background: #040404; position: relative;
+        }
+        .product-preview img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.15); transition: 0.6s ease; }
+        .product-card:hover .product-preview img { transform: scale(1.25); }
+        .product-badge { position: absolute; top: 20px; left: 20px; background: var(--primary-red); padding: 5px 12px; font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
+
+        .t-red { filter: hue-rotate(0deg) contrast(1.1); }
+        .t-blue { filter: hue-rotate(220deg) saturate(3) brightness(0.8); }
+        .t-pink { filter: hue-rotate(300deg) saturate(2.5) brightness(1.1); }
+
+        .card-info { padding: 30px; }
+        .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        .product-name-label { font-family: 'Orbitron'; font-size: 1rem; letter-spacing: 2px; }
+        .price { color: var(--primary-red); font-weight: 800; font-size: 1.2rem; }
+
+        .size-row { display: flex; gap: 8px; margin-bottom: 20px; }
+        .size-btn { padding: 8px 14px; background: transparent; border: 1px solid #222; color: #666; font-size: 0.65rem; cursor: pointer; transition: 0.2s; letter-spacing: 1px; }
+        .size-btn:hover, .size-btn.selected { border-color: white; color: white; }
+
+        .color-row { display: flex; gap: 8px; margin-bottom: 25px; align-items: center; }
+        .color-dot { width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
+        .color-dot:hover, .color-dot.selected { border-color: white; }
+        .color-dot.red { background: #ff2200; }
+        .color-dot.blue { background: #0055ff; }
+        .color-dot.pink { background: #ff44aa; }
+        .color-label { font-size: 0.65rem; color: #444; letter-spacing: 2px; text-transform: uppercase; }
+
+        .btn-add { width: 100%; padding: 16px; background: var(--primary-red); color: white; border: none; font-family: 'Orbitron'; cursor: pointer; font-size: 0.75rem; letter-spacing: 2px; transition: 0.3s; }
+        .btn-add:hover { background: white; color: black; }
+
+        .btn-checkout {
+            width: 100%; padding: 15px; background: var(--primary-red); color: white; 
+            border: none; font-weight: 800; cursor: pointer; font-family: 'Orbitron'; 
+            font-size: 0.75rem; letter-spacing: 2px; transition: 0.3s;
+        }
+        .btn-checkout:hover { background: white; color: black; }
+
+        footer { padding: 60px; text-align: center; color: #333; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; border-top: 1px solid var(--border-gray); }
+
+        @media (max-width: 768px) {
+            .shop-grid { grid-template-columns: 1fr; }
+            #cart-sidebar { width: 100%; right: -100%; }
+            .page-hero { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">KM<span>GEARS</span></a>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li class="cart-trigger" onclick="toggleCart()">🛒 <span class="cart-count" id="count">0</span></li>
+    </ul>
+</nav>
+
+<div id="cart-sidebar">
+    <div class="cart-header">
+        <h2 style="font-family: 'Orbitron'; font-size:1rem; letter-spacing:3px;">YOUR CART</h2>
+        <span class="close-cart" onclick="toggleCart()">&times;</span>
+    </div>
+    <div id="cart-items-list" style="flex-grow:1; overflow-y:auto;">
+        <div class="cart-empty" id="cart-empty-msg">No items yet.</div>
+    </div>
+    <div style="padding-top:20px; border-top:1px solid var(--border-gray);">
+        <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-family:'Orbitron'; font-size:0.85rem;">
+            <span>TOTAL</span>
+            <span id="total-price">P0.00</span>
+        </div>
+        <button onclick="checkout()" class="btn-checkout">CHECKOUT</button>
+    </div>
+</div>
+
+<div class="page-hero">
+    <div>
+        <h1>The<br>Collection</h1>
+        <p>Three models. Endless colors. One mindset.</p>
+    </div>
+    <div class="product-count">03</div>
+</div>
+
+<div class="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" onclick="filterCards(this, 'all')">All</button>
+    <button class="filter-btn" onclick="filterCards(this, 'budget')">Under P600</button>
+    <button class="filter-btn" onclick="filterCards(this, 'premium')">P600+</button>
+</div>
+
+<div class="shop-section">
+    <div class="shop-grid">
+
+        <div class="product-card reveal" data-price="550">
+            <div class="product-preview">
+                <span class="product-badge">BESTSELLER</span>
+                <img src="elite.png" alt="KM Elite" id="img-elite" class="t-red">
+            </div>
+            <div class="card-info">
+                <div class="card-top">
+                    <span class="product-name-label">KM ELITE V1</span>
+                    <span class="price">P550.00</span>
+                </div>
+                <div class="size-row" data-product="elite">
+                    <button class="size-btn selected" onclick="selectSize(this)">S</button>
+                    <button class="size-btn" onclick="selectSize(this)">M</button>
+                    <button class="size-btn" onclick="selectSize(this)">L</button>
+                </div>
+                <div class="color-row">
+                    <span class="color-label">Color:</span>
+                    <div class="color-dot red selected" onclick="changeColor(this, 'img-elite', 't-red')" title="Red"></div>
+                    <div class="color-dot blue" onclick="changeColor(this, 'img-elite', 't-blue')" title="Blue"></div>
+                    <div class="color-dot pink" onclick="changeColor(this, 'img-elite', 't-pink')" title="Pink"></div>
+                </div>
+                <button class="btn-add" onclick="addItem(this, 'KM ELITE V1', 550)">ADD TO CART</button>
+            </div>
+        </div>
+
+        <div class="product-card reveal" data-price="650">
+            <div class="product-preview">
+                <span class="product-badge" style="background:#222; color:white;">PREMIUM</span>
+                <img src="carbon.png" alt="KM Carbon" id="img-carbon" class="t-red">
+            </div>
+            <div class="card-info">
+                <div class="card-top">
+                    <span class="product-name-label">KM CARBON</span>
+                    <span class="price">P650.00</span>
+                </div>
+                <div class="size-row">
+                    <button class="size-btn selected" onclick="selectSize(this)">S</button>
+                    <button class="size-btn" onclick="selectSize(this)">M</button>
+                    <button class="size-btn" onclick="selectSize(this)">L</button>
+                </div>
+                <div class="color-row">
+                    <span class="color-label">Color:</span>
+                    <div class="color-dot red selected" onclick="changeColor(this, 'img-carbon', 't-red')" title="Red"></div>
+                    <div class="color-dot blue" onclick="changeColor(this, 'img-carbon', 't-blue')" title="Blue"></div>
+                    <div class="color-dot pink" onclick="changeColor(this, 'img-carbon', 't-pink')" title="Pink"></div>
+                </div>
+                <button class="btn-add" onclick="addItem(this, 'KM CARBON', 650)">ADD TO CART</button>
+            </div>
+        </div>
+
+        <div class="product-card reveal" data-price="600">
+            <div class="product-preview">
+                <img src="pro.png" alt="KM Pro" id="img-pro" class="t-red">
+            </div>
+            <div class="card-info">
+                <div class="card-top">
+                    <span class="product-name-label">KM PRO</span>
+                    <span class="price">P600.00</span>
+                </div>
+                <div class="size-row">
+                    <button class="size-btn selected" onclick="selectSize(this)">S</button>
+                    <button class="size-btn" onclick="selectSize(this)">M</button>
+                    <button class="size-btn" onclick="selectSize(this)">L</button>
+                </div>
+                <div class="color-row">
+                    <span class="color-label">Color:</span>
+                    <div class="color-dot red selected" onclick="changeColor(this, 'img-pro', 't-red')" title="Red"></div>
+                    <div class="color-dot blue" onclick="changeColor(this, 'img-pro', 't-blue')" title="Blue"></div>
+                    <div class="color-dot pink" onclick="changeColor(this, 'img-pro', 't-pink')" title="Pink"></div>
+                </div>
+                <button class="btn-add" onclick="addItem(this, 'KM PRO', 600)">ADD TO CART</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>&copy; 2026 KM GEARS. ENGINEERED FOR GAME.</footer>
+
+<script>
+    ScrollReveal().reveal('.reveal', { delay: 100, distance: '25px', origin: 'bottom', duration: 700 });
+
+    function changeColor(dot, imgId, colorClass) {
+        dot.closest('.color-row').querySelectorAll('.color-dot').forEach(d => d.classList.remove('selected'));
+        dot.classList.add('selected');
+        const img = document.getElementById(imgId);
+        img.className = colorClass;
+    }
+
+    function selectSize(btn) {
+        btn.closest('.size-row').querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+    }
+
+    function filterCards(btn, type) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.product-card').forEach(card => {
+            const price = parseInt(card.dataset.price);
+            if (type === 'all') card.style.display = '';
+            else if (type === 'budget') card.style.display = price < 600 ? '' : 'none';
+            else if (type === 'premium') card.style.display = price >= 600 ? '' : 'none';
+        });
+    }
+
+    let cart = [];
+    function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+
+    function addItem(btn, name, price) {
+        const card = btn.closest('.product-card');
+        const selectedSize = card.querySelector('.size-btn.selected')?.textContent || 'M';
+        const selectedColor = card.querySelector('.color-dot.selected')?.title || 'Red';
+        cart.push({ name, price, size: selectedSize, color: selectedColor });
+        updateCart();
+        if (!document.getElementById('cart-sidebar').classList.contains('active')) toggleCart();
+        btn.textContent = '✓ ADDED';
+        setTimeout(() => btn.textContent = 'ADD TO CART', 1500);
+    }
+
+    function removeItem(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
+    function updateCart() {
+        const list = document.getElementById('cart-items-list');
+        const total = document.getElementById('total-price');
+        const count = document.getElementById('count');
+        let sum = 0;
+        if (cart.length === 0) {
+            list.innerHTML = '<div class="cart-empty" id="cart-empty-msg">No items yet.</div>';
+        } else {
+            list.innerHTML = cart.map((item, i) => `
+                <div style="padding:15px 0; border-bottom:1px solid #111; font-size:0.8rem;">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <div>
+                            <div style="font-family:'Orbitron'; font-size:0.75rem; margin-bottom:5px;">${item.name}</div>
+                            <div style="color:#444; font-size:0.7rem;">${item.color} · Size ${item.size}</div>
+                        </div>
+                        <div style="display:flex; gap:15px; align-items:center;">
+                            <span style="color:var(--primary-red); font-weight:800;">P${item.price}</span>
+                            <span onclick="removeItem(${i})" style="cursor:pointer; color:#333; font-size:1.2rem; line-height:1;">&times;</span>
+                        </div>
+                    </div>
+                </div>`).join('');
+        }
+        cart.forEach(i => sum += i.price);
+        count.innerText = cart.length;
+        total.innerText = `P${sum}.00`;
+    }
+
+    function checkout() {
+        if (cart.length === 0) { alert('Your cart is empty.'); return; }
+        window.location.href = 'checkout.html';
+    }
+</script>
+</body>
+</html>
