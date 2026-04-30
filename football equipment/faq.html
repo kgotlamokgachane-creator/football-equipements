@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KM GEARS | FAQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" href="main.css">
+	<link rel="stylesheet" href="faq.css">
+
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">KM<span>GEARS</span></a>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="faq.html" class="active">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+</nav>
+
+<div class="page-hero">
+    <div class="page-hero-inner">
+        <span class="page-eyebrow">Knowledge Base</span>
+        <h1 class="reveal">Common<br>Questions</h1>
+        <p class="reveal">Everything you need to know about KM GEARS — sizing, delivery, payments, and care.</p>
+    </div>
+</div>
+
+<!-- Search -->
+<div class="faq-search-wrap">
+    <div class="faq-search reveal">
+        <input type="text" id="faq-search-input" placeholder="Search questions..." oninput="searchFAQ(this.value)">
+        <button>SEARCH</button>
+    </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="faq-section">
+    <div class="faq-categories reveal">
+        <button class="cat-btn active" onclick="filterCategory(this, 'all')">All</button>
+        <button class="cat-btn" onclick="filterCategory(this, 'sizing')">Sizing</button>
+        <button class="cat-btn" onclick="filterCategory(this, 'payment')">Payments</button>
+        <button class="cat-btn" onclick="filterCategory(this, 'delivery')">Delivery</button>
+        <button class="cat-btn" onclick="filterCategory(this, 'product')">Product</button>
+        <button class="cat-btn" onclick="filterCategory(this, 'policy')">Policy</button>
+    </div>
+
+    <div class="faq-columns" id="faq-list">
+
+        <div class="faq-item reveal" data-category="sizing">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span class="faq-q-text">What sizes do you offer?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer"><p><span class="highlight">S:</span> 8×5cm &nbsp;|&nbsp; <span class="highlight">M:</span> 10×6cm &nbsp;|&nbsp; <span class="highlight">L:</span> 12×8cm. All designed for a slim, secure fit optimized for high-performance football. If you're between sizes, we recommend sizing up.</p></div>
+        </div>
+
+        <div class="faq-item reveal" data-category="payment">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span class="faq-q-text">What local payment methods do you accept?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer"><p>We accept <span class="highlight">EFT transfers</span> and all major <span class="highlight">Mobile Money</span> platforms including Orange Money, eWallet, and MyZaka. International customers can pay via PayPal.</p></div>
+        </div>
+
+        <div class="faq-item reveal" data-category="delivery">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span class="faq-q-text">How long does delivery take?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer"><p>Standard delivery across Botswana is <span class="highlight">2–4 business days</span> after dispatch. Gaborone pickups are available. Once your order is processed, you'll receive a confirmation with tracking details.</p></div>
+        </div>
+
+        <div class="faq-item reveal" data-category="policy">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span class="faq-q-text">What is the exchange policy?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer"><p>Unused gear in its original condition can be exchanged for a different size within <span class="highlight">14 days</span> of delivery. Contact us via the Contact page to initiate a swap.</p></div>
+        </div>
+
+        <div class="faq-item reveal" data-category="product">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span class="faq-q-text">What colors are the shin guards available in?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer"><p>All three models (Elite V1, Carbon, and Pro) are available in <span class="highlight">Red, Blue, and Pink</span>. Select your color when adding to cart. Color accuracy may vary slightly between screens.</p></div>
+        </div>
+
+        <div class="faq-item reveal" data-category="product">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span class="faq-q-text">What is the difference between the models?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer"><p><span class="highlight">Elite V1</span> is our entry performance model (P550). <span class="highlight">KM PRO</span> features enhanced cushioning (P600). <span class="highlight">KM CARBON</span> is our flagship with a reinforced carbon shell (P650).</p></div>
+        </div>
+
+        <div class="faq-item reveal" data-category="delivery">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span class="faq-q-text">Do you offer bulk / team orders?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer"><p>Yes! We offer bulk pricing for team orders of <span class="highlight">5 pairs or more</span>. Contact us directly through the Contact page and mention your team size for a custom quote.</p></div>
+        </div>
+
+        <div class="faq-item reveal" data-category="sizing">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span class="faq-q-text">How do I measure for the right size?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer"><p>Measure the length of your shin from just below the knee to just above the ankle bone. Compare with our sizing chart: <span class="highlight">S</span> = up to 8cm, <span class="highlight">M</span> = 8–10cm, <span class="highlight">L</span> = 10–12cm.</p></div>
+        </div>
+
+        <div class="faq-item reveal" data-category="product">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span class="faq-q-text">How do I care for my shin guards?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer"><p>Wipe clean with a damp cloth after each game. Avoid submerging in water. Air dry in a cool, shaded area. Do not machine wash or tumble dry.</p></div>
+        </div>
+
+        <div class="faq-item reveal" data-category="payment">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span class="faq-q-text">Is it safe to pay online?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer"><p>Yes. Online transactions are processed through <span class="highlight">PayPal's secure checkout</span>, which includes buyer protection. Mobile Money payments go directly to our registered business wallet.</p></div>
+        </div>
+
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="faq-cta">
+    <h2 class="reveal">Still have questions?</h2>
+    <p class="reveal">Our team is ready to help.</p>
+    <a href="contact.html" class="btn-red reveal">CONTACT US</a>
+</div>
+
+<footer>&copy; 2026 KM GEARS. ENGINEERED FOR GAME.</footer>
+
+<script>
+    ScrollReveal().reveal('.reveal', { delay: 100, distance: '20px', origin: 'bottom', duration: 700 });
+
+    function toggleFAQ(btn) {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    }
+
+    function filterCategory(btn, cat) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.style.display = (cat === 'all' || item.dataset.category === cat) ? '' : 'none';
+        });
+    }
+
+    function searchFAQ(query) {
+        const q = query.toLowerCase();
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(q) ? '' : 'none';
+        });
+    }
+</script>
+</body>
+</html>
