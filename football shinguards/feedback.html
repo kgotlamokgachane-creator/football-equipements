@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KM GEARS | Feedback</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+	<link rel="stylesheet" href="main.css">
+	
+
+       
+</head>
+<body class="feedback">
+
+<nav>
+    <a href="index.html" class="logo">KM<span>GEARS</span></a>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="feedback.html" class="active">Feedback</a></li>
+    </ul>
+</nav>
+
+<div class="page-hero">
+    <span class="page-eyebrow reveal">Customer Reviews</span>
+    <h1 class="reveal">What Players<br>Are Saying</h1>
+    <p class="reveal">Real reviews from real players across Botswana. No filter, just facts.</p>
+</div>
+
+<!-- Rating Overview -->
+<div class="rating-overview">
+    <div class="big-score reveal">
+        <div class="num">4.8</div>
+        <div class="stars-display">★★★★★</div>
+        <div class="total">Based on 47 reviews</div>
+    </div>
+    <div class="rating-bars reveal">
+        <div class="bar-row">
+            <span class="bar-label">5 ★</span>
+            <div class="bar-track"><div class="bar-fill" data-width="85%"></div></div>
+            <span class="bar-count">40</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">4 ★</span>
+            <div class="bar-track"><div class="bar-fill" data-width="10%"></div></div>
+            <span class="bar-count">5</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">3 ★</span>
+            <div class="bar-track"><div class="bar-fill" data-width="3%"></div></div>
+            <span class="bar-count">1</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">2 ★</span>
+            <div class="bar-track"><div class="bar-fill" data-width="2%"></div></div>
+            <span class="bar-count">1</span>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">1 ★</span>
+            <div class="bar-track"><div class="bar-fill" data-width="0%"></div></div>
+            <span class="bar-count">0</span>
+        </div>
+        <div class="rating-tags">
+            <span class="tag">Great fit</span>
+            <span class="tag">Fast delivery</span>
+            <span class="tag">Premium feel</span>
+            <span class="tag">Worth the price</span>
+            <span class="tag">Slim profile</span>
+        </div>
+    </div>
+</div>
+
+<!-- Review Form -->
+<div class="form-section">
+    <h2 class="reveal">Leave a Review</h2>
+    <form class="review-form" onsubmit="handleSubmit(event)">
+        <div class="form-row2 reveal">
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="Kgosi M." required>
+            </div>
+            <div class="form-group">
+                <label>Product Purchased</label>
+                <select required>
+                    <option value="" disabled selected>Select model</option>
+                    <option>KM ELITE V1</option>
+                    <option>KM CARBON</option>
+                    <option>KM PRO</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Overall star rating -->
+        <div class="star-input-wrap reveal">
+            <span class="star-input-label">Overall Rating</span>
+            <div class="star-selector" id="overall-stars">
+                <input type="radio" name="rating" id="s5" value="5"><label for="s5">★</label>
+                <input type="radio" name="rating" id="s4" value="4"><label for="s4">★</label>
+                <input type="radio" name="rating" id="s3" value="3"><label for="s3">★</label>
+                <input type="radio" name="rating" id="s2" value="2"><label for="s2">★</label>
+                <input type="radio" name="rating" id="s1" value="1"><label for="s1">★</label>
+            </div>
+        </div>
+
+        <!-- Category ratings -->
+        <div class="cat-ratings reveal">
+            <div class="cat-rating-item">
+                <label>Protection</label>
+                <div class="mini-stars" data-cat="protection">
+                    <span class="mini-star" onclick="rateCat(this, 'protection', 1)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'protection', 2)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'protection', 3)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'protection', 4)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'protection', 5)">★</span>
+                </div>
+            </div>
+            <div class="cat-rating-item">
+                <label>Comfort</label>
+                <div class="mini-stars" data-cat="comfort">
+                    <span class="mini-star" onclick="rateCat(this, 'comfort', 1)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'comfort', 2)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'comfort', 3)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'comfort', 4)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'comfort', 5)">★</span>
+                </div>
+            </div>
+            <div class="cat-rating-item">
+                <label>Value for Money</label>
+                <div class="mini-stars" data-cat="value">
+                    <span class="mini-star" onclick="rateCat(this, 'value', 1)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'value', 2)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'value', 3)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'value', 4)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'value', 5)">★</span>
+                </div>
+            </div>
+            <div class="cat-rating-item">
+                <label>Delivery Speed</label>
+                <div class="mini-stars" data-cat="delivery">
+                    <span class="mini-star" onclick="rateCat(this, 'delivery', 1)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'delivery', 2)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'delivery', 3)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'delivery', 4)">★</span>
+                    <span class="mini-star" onclick="rateCat(this, 'delivery', 5)">★</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group reveal">
+            <label>Your Review</label>
+            <textarea placeholder="Tell us about your experience with KM GEARS..." required maxlength="600"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit reveal">SUBMIT REVIEW</button>
+        <div class="success-msg" id="success-msg">★ REVIEW SUBMITTED — Thank you for your feedback!</div>
+    </form>
+</div>
+
+<!-- Reviews List -->
+<div class="reviews-section">
+    <div class="reviews-header reveal">
+        <h2>Player Reviews</h2>
+        <select class="sort-select" onchange="sortReviews(this.value)">
+            <option value="newest">Newest First</option>
+            <option value="highest">Highest Rated</option>
+            <option value="lowest">Lowest Rated</option>
+        </select>
+    </div>
+
+    <div class="reviews-grid" id="reviews-grid">
+
+        <div class="review-card reveal" data-rating="5" data-date="2026-04-10">
+            <div class="review-top">
+                <div class="reviewer-info">
+                    <div class="reviewer-name">Thabo K.</div>
+                    <div class="reviewer-meta">April 2026 · Gaborone</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+            </div>
+            <div class="review-product">KM CARBON · Blue · Size M</div>
+            <p class="review-text">These are genuinely the best shin guards I've used locally. The carbon shell is solid and doesn't add any weight. Delivery was 2 days to Gaborone. Already ordered a second pair for my brother.</p>
+            <div class="review-footer">
+                <span class="verified-badge">✓ Verified Purchase</span>
+                <button class="helpful-btn" onclick="markHelpful(this)">👍 Helpful (3)</button>
+            </div>
+        </div>
+
+        <div class="review-card reveal" data-rating="5" data-date="2026-03-28">
+            <div class="review-top">
+                <div class="reviewer-info">
+                    <div class="reviewer-name">Mpho R.</div>
+                    <div class="reviewer-meta">March 2026 · Francistown</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+            </div>
+            <div class="review-product">KM ELITE V1 · Red · Size S</div>
+            <p class="review-text">Perfect for my daughter. She plays at district level and has been complaining about her old guards for months. These fit perfectly and she loves the red color. Fast shipping to Francistown too.</p>
+            <div class="review-footer">
+                <span class="verified-badge">✓ Verified Purchase</span>
+                <button class="helpful-btn" onclick="markHelpful(this)">👍 Helpful (7)</button>
+            </div>
+        </div>
+
+        <div class="review-card reveal" data-rating="5" data-date="2026-03-15">
+            <div class="review-top">
+                <div class="reviewer-info">
+                    <div class="reviewer-name">Neo S.</div>
+                    <div class="reviewer-meta">March 2026 · Gaborone</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+            </div>
+            <div class="review-product">KM PRO · Pink · Size L</div>
+            <p class="review-text">The KM PRO is exactly what I needed. Slim under the sock, real protection when it counts. The pink color is fire. Already telling my whole team about this brand.</p>
+            <div class="review-footer">
+                <span class="verified-badge">✓ Verified Purchase</span>
+                <button class="helpful-btn" onclick="markHelpful(this)">👍 Helpful (12)</button>
+            </div>
+        </div>
+
+        <div class="review-card reveal" data-rating="4" data-date="2026-02-20">
+            <div class="review-top">
+                <div class="reviewer-info">
+                    <div class="reviewer-name">Lerato D.</div>
+                    <div class="reviewer-meta">February 2026 · Maun</div>
+                </div>
+                <div class="review-stars">★★★★☆</div>
+            </div>
+            <div class="review-product">KM ELITE V1 · Blue · Size M</div>
+            <p class="review-text">Good quality guards, definitely worth the price. Delivery to Maun took 4 days which is on the longer end but still within what they promised. Would love to see more size options in future.</p>
+            <div class="review-footer">
+                <span class="verified-badge">✓ Verified Purchase</span>
+                <button class="helpful-btn" onclick="markHelpful(this)">👍 Helpful (2)</button>
+            </div>
+        </div>
+
+        <div class="review-card reveal" data-rating="5" data-date="2026-01-30">
+            <div class="review-top">
+                <div class="reviewer-info">
+                    <div class="reviewer-name">Keabetswe M.</div>
+                    <div class="reviewer-meta">January 2026 · Gaborone</div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+            </div>
+            <div class="review-product">KM CARBON · Red · Size L</div>
+            <p class="review-text">Ordered for my whole 5-a-side team. Got a good bulk discount and all guards arrived same day. The carbon feels premium. Team loves them. We'll be back next season for sure.</p>
+            <div class="review-footer">
+                <span class="verified-badge">✓ Verified Purchase</span>
+                <button class="helpful-btn" onclick="markHelpful(this)">👍 Helpful (19)</button>
+            </div>
+        </div>
+
+        <div class="review-card reveal" data-rating="3" data-date="2026-01-10">
+            <div class="review-top">
+                <div class="reviewer-info">
+                    <div class="reviewer-name">Bontle O.</div>
+                    <div class="reviewer-meta">January 2026 · Lobatse</div>
+                </div>
+                <div class="review-stars">★★★☆☆</div>
+            </div>
+            <div class="review-product">KM PRO · Blue · Size S</div>
+            <p class="review-text">Guards are decent quality. My only issue is the small size ran slightly large for me. The exchange process was quick though, they sorted it out without any hassle. Would rate higher after getting the right size.</p>
+            <div class="review-footer">
+                <span class="verified-badge">✓ Verified Purchase</span>
+                <button class="helpful-btn" onclick="markHelpful(this)">👍 Helpful (4)</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>&copy; 2026 KM GEARS. ENGINEERED FOR GAME.</footer>
+
+<script>
+    ScrollReveal().reveal('.reveal', { delay: 100, distance: '20px', origin: 'bottom', duration: 700 });
+
+    // Animate bars on load
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            document.querySelectorAll('.bar-fill').forEach(bar => {
+                bar.style.width = bar.dataset.width;
+            });
+        }, 400);
+    });
+
+    // Mini star rating
+    function rateCat(star, cat, value) {
+        const container = star.closest('.mini-stars');
+        const stars = container.querySelectorAll('.mini-star');
+        stars.forEach((s, i) => s.classList.toggle('active', i < value));
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector('.btn-submit');
+        btn.disabled = true;
+        btn.textContent = 'SUBMITTING...';
+        setTimeout(() => {
+            document.getElementById('success-msg').style.display = 'block';
+            btn.textContent = '★ SUBMITTED';
+            e.target.reset();
+            document.querySelectorAll('.mini-star').forEach(s => s.classList.remove('active'));
+        }, 1200);
+    }
+
+    function markHelpful(btn) {
+        const match = btn.textContent.match(/\((\d+)\)/);
+        if (match) {
+            const n = parseInt(match[1]) + 1;
+            btn.textContent = `👍 Helpful (${n})`;
+            btn.style.color = 'white';
+            btn.disabled = true;
+        }
+    }
+
+    function sortReviews(order) {
+        const grid = document.getElementById('reviews-grid');
+        const cards = Array.from(grid.querySelectorAll('.review-card'));
+        cards.sort((a, b) => {
+            if (order === 'newest') return new Date(b.dataset.date) - new Date(a.dataset.date);
+            if (order === 'highest') return parseInt(b.dataset.rating) - parseInt(a.dataset.rating);
+            if (order === 'lowest') return parseInt(a.dataset.rating) - parseInt(b.dataset.rating);
+        });
+        cards.forEach(c => grid.appendChild(c));
+    }
+</script>
+</body>
+</html>
