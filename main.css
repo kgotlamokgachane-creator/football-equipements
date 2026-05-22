@@ -289,6 +289,9 @@ footer {
 /* FEATURES */
 .features-section {
   border-bottom: 1px solid var(--border-gray);
+  width: 100%;
+  margin: 0;
+  padding: 80px 0 !important;
 }
 
 .section-title {
@@ -342,15 +345,25 @@ footer {
 }
 
 /* PRODUCTS */
+
 .products-section {
   border-bottom: 1px solid var(--border-gray);
+  width: 100%;
+  margin: 0;
+  padding: 80px 0 !important;
 }
 
+/* 3 COLUMNS, 1 ROW GRID LAYOUT */
 .product-teaser-grid {
-  gap: 2px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Forces exactly 3 equal columns side-by-side */
+  grid-template-rows: auto;               /* Wraps them up cleanly into a single row */
+  gap: 2px;                              /* Premium thin dark borders between them */
   background: var(--border-gray);
+  width: 100%;
 }
 
+/* FULL-WIDTH PRODUCT CARD CHIPS */
 .product-teaser {
   background: var(--bg-black);
   padding: 60px 40px;
@@ -359,6 +372,13 @@ footer {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--border-gray);
+  
+  /* FORCES CARDS TO EXPAND AND FILL THE ENTIRE COLUMN WIDTH */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
 }
 
 .product-teaser::before {
@@ -411,9 +431,18 @@ footer {
   padding: 160px 8% 80px;
   border-bottom: 1px solid var(--border-gray);
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: 40px;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page-hero div {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .page-hero h1 {
@@ -442,11 +471,7 @@ footer {
 }
 
 .product-count {
-  font-family: 'Orbitron';
-  font-size: 8rem;
-  font-weight: 900;
-  color: #0d0d0d;
-  line-height: 1;
+  display: none;
 }
 
 .filter-bar {
@@ -786,6 +811,7 @@ footer {
 
 .contact-section {
   border-bottom: 1px solid var(--border-gray);
+  padding: 80px 0 !important;
 }
 
 .info-panel {
@@ -1135,6 +1161,10 @@ footer {
 
 .rating-overview {
   border-bottom: 1px solid var(--border-gray);
+  width: 100%;
+  padding: 80px 8% !important;
+  display: flex;
+  justify-content: center;
 }
 
 .big-score {
@@ -1165,6 +1195,8 @@ footer {
 
 .rating-bars {
   min-width: 250px;
+  flex: 1;
+  max-width: 600px;
 }
 
 .bar-row {
@@ -1208,6 +1240,7 @@ footer {
 /* FEEDBACK FORM */
 .feedback .form-section {
   border-bottom: 1px solid var(--border-gray);
+  padding: 80px 8% !important;
 }
 
 .feedback .form-section h2 {
@@ -1291,6 +1324,8 @@ footer {
 /* REVIEWS LIST */
 .feedback .reviews-section {
   padding: 80px 8% 100px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .reviews-header {
@@ -1320,7 +1355,12 @@ footer {
 }
 
 .reviews-grid {
-  gap: 20px !important;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates 3 equal columns */
+  grid-template-rows: repeat(3, auto);   /* Creates 3 rows that size automatically based on content */
+  gap: 25px;                             /* Clean spacing between the cards */
+  width: 100%;                           /* Stretches across the full screen width */
+  margin: 0 auto;
 }
 
 .review-card {
@@ -1328,6 +1368,10 @@ footer {
   padding: 35px;
   border: 1px solid var(--border-gray);
   transition: background 0.2s;
+  
+  /* ADD THESE TWO LINES TO FORCE FULL WIDTH */
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .review-card:hover {
@@ -1428,8 +1472,10 @@ footer {
   .order-summary { margin-top: 30px; }
   #cart-sidebar { width: 100%; right: -100%; }
   .rating-overview { flex-direction: column; }
-}
+  
 
+  .product-teaser-grid { grid-template-columns: 1fr; } 
+}
 @media (max-width: 480px) {
   .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
   nav { padding: 15px 4%; }
